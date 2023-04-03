@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link rel="stylesheet" href="/static/style.css">
+	<link rel="stylesheet" href="/static/slick.css">
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+	<script src="/static/js/common.js"></script>
+	<title>Themes add category</title>
+	<script>
+		function previewFile(iDevent) {
+			let allowedExtension = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/bmp']
+			var preview = document.querySelector(`#${iDevent}_img`);
+			var file = document.querySelector(`#${iDevent}`).files[0];
+			var text_file = document.querySelector(`#${iDevent}_text`);
+			var reader = new FileReader();
+			let type = file.type;
+			console.log(type)
+
+			reader.onloadend = function () {
+				if (allowedExtension.indexOf(type) > -1) {
+					preview.src = reader.result;
+					text_file.style.visibility = 'hidden'
+				} else {
+					preview.src = "/static/img/empty.png";
+					text_file.innerText = file.name;
+					text_file.style.visibility = 'visible';
+				}
+
+
+				preview.style.visibility = 'visible';
+			}
+
+
+			if (file) {
+				reader.readAsDataURL(file);
+			} else {
+				preview.src = "";
+			}
+		}
+
+	</script>
+</head>
+<body>
+	<header class="header">
+		<a href="/" style="color: #64748B;text-decoration: none;font-size: 15px;"><b>Theme Store</b></a>
+	</header>
+	<div class="page-content">
+		<nav class="nav">
+			<div class="name">
+				<img src="/static/img/menu.svg"> Resources
+			</div>
+			<ul class="ul">
+				<li><a href="{% url 'home' %}" class="active">Themes</a></li>
+				<li><a href="{% url 'icons' %}">Icons</a></li>
+				<li>
+					<a class="with_sub">Widgets</a>
+					<ul>
+						<li><a href="{% url 'widgetslock' %}">Lock screen</a></li>
+						<li><a href="{% url 'widgetshome' %}">Home screen</a></li>
+					</ul>
+				</li>
+				<li><a href="{% url 'wallpapers' %}">Wallpapers</a></li>
+
+			</ul>
+		</nav>
+		<div class="main-block">
+			<h1>Add Category</h1>
+			<div class="create">
+				{% block content %}
+				<form method = "post" enctype="multipart/form-data">
+					{% csrf_token %}
+
+				<div class="fields">
+					<div class="field">
+						<p>Category name</p>
+						<input id="id_category" name="category" type="text" placeholder="Fill category name">
+					</div>
+					<div class="field">
+						<p>Picture</p>
+						<button  id="file_b" type="button" class="upload">Upload</button>
+						<input  id="file" class="file" name="file"  value="1"  type="file" onchange="previewFile(this.id)"><br>
+						<img src="/static/img/empty.png" class="img" id="file_img" style="visibility:hidden">
+						<a id="file_text" style="visibility:hidden">t</a>
+					</div>
+				</div>
+				<button class="button" type="submit">Create</button>
+					</form>
+				{% endblock %}
+			</div>
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link rel="stylesheet" href="/static/style.css">
+	<link rel="stylesheet" href="/static/slick.css">
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+	<script src="/static/js/common.js"></script>
+	<title>Widgets locks</title>
+</head>
+<body>
+	<header class="header">
+		<a href="/" style="color: #64748B;text-decoration: none;font-size: 15px;"><b>Theme Store</b></a>
+	</header>
+	<div class="page-content">
+		<nav class="nav">
+			<div class="name">
+				<img src="/static/img/menu.svg"> Resources
+			</div>
+			<ul class="ul">
+				<li><a href="{% url 'home' %}">Themes</a></li>
+				<li><a href="{% url 'icons' %}">Icons</a></li>
+				<li>
+					<a class="with_sub active">Widgets</a>
+					<ul>
+						<li><a href="{% url 'widgetslock' %}">Lock screen</a></li>
+						<li><a href="{% url 'widgetshome' %}">Home screen</a></li>
+					</ul>
+				</li>
+				<li><a href="{% url 'wallpapers' %}">Wallpapers</a></li>
+
+			</ul>
+		</nav>
+		<div class="main-block">
+			<h1>Widgets lock</h1>
+			<div class="themes">
+				<button class="add" onclick="location.href='{% url 'widgetslock_add_category' %}'">Add Category</button>
+				<div class="content">
+					<table>
+						<thead>
+							<tr>
+								<td> ID <a></a></td>
+								<td> Category <a></a></td>
+								<td> Amount <a></a></td>
+								<td></td>
+							</tr>
+						</thead>
+						<tbody>
+						{% for p in contact %}
+							<tr>
+								<td>{{ p.id_Widgets }}</td>
+								<td>{{ p.category }}</td>
+								<td>{{ p.amount }}</td>
+								<td>
+									<div class="links">
+										<a href="{% url 'widgetslock_cat_slug' p.id_Widgets %}"></a>
+										<a href="{% url 'widgetslock_del_category' p.id_Widgets %}"></a>
+									</div>
+								</td>
+							</tr>
+						{% endfor %}
+						</tbody>
+					</table>
+					<div class="bottom-nav flex">
+						<a href="#">Previous</a>
+						<p>1-1 of 7</p>
+						<a href="#">Next</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

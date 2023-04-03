@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link rel="stylesheet" href="/static/style.css">
+	<link rel="stylesheet" href="/static/slick.css">
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+	<script src="/static/js/common.js"></script>
+	<title>Icons</title>
+</head>
+<body>
+	<header class="header">
+		<a href="/" style="color: #64748B;text-decoration: none;font-size: 15px;"><b>Theme Store</b></a>
+	</header>
+	<div class="page-content">
+		<nav class="nav">
+			<div class="name">
+				<img src="/static/img/menu.svg"> Resources
+			</div>
+			<ul class="ul">
+				<li><a href="{% url 'home' %}">Themes</a></li>
+				<li><a href="{% url 'icons' %}" class="active">Icons</a></li>
+				<li>
+					<a class="with_sub">Widgets</a>
+					<ul>
+						<li><a href="{% url 'widgetslock' %}">Lock screen</a></li>
+						<li><a href="{% url 'widgetshome' %}">Home screen</a></li>
+					</ul>
+				</li>
+				<li><a href="{% url 'wallpapers' %}">Wallpapers</a></li>
+
+			</ul>
+		</nav>
+		<div class="main-block">
+			<h1>Icons</h1>
+			<div class="themes">
+				<button class="add" onclick="location.href='{% url 'icon_add_cat_slug' cat_slug %}'">Add Icon set</button>
+				<div class="content">
+					<table>
+						<thead>
+							<tr>
+								<td>ID <a></a></td>
+								<td>Theme Name <a></a></td>
+								<td>Icons <a></a></td>
+								<td>Premium</td>
+							</tr>
+						</thead>
+						<tbody>
+							{% for p in posts %}
+						  <tr>
+							<td>{{ p.id_icon }}</td>
+							<td>{{ p.name }}</td>
+							<td>1</td>
+							<td>
+							  <div class="links other">
+								{% if 'off' in p.premium %}
+								  <a href="#" class="delete"></a>
+								{% else %}
+								  <a href="#"></a>
+								{% endif %}
+								<a href="{% url 'p_icons_cat_slug' cat_slug p.id_icon %}"></a>
+								<a href="{% url 'p_icons_cat_slug' cat_slug p.id_icon %}"></a>
+								<a href="{% url 'p_icons_cat_slug' cat_slug p.id_icon %}"></a>
+								<a href="{% url 'del_p_icons_cat_slug' cat_slug p.id_icon %}"></a>
+							  </div>
+							</td>
+						  </tr>
+						{% endfor %}
+						</tbody>
+					</table>
+					<div class="bottom-nav flex">
+						<a href="#">Previous</a>
+						<p>1-1 of 7</p>
+						<a href="#">Next</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
