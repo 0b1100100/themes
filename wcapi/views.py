@@ -26,7 +26,6 @@ from django.http import FileResponse
 def index(request):  # HttpRequest
     context = Themes.objects.all()
     context = {'contact': context}
-
     return render(request, 'wcapi/index.html', context)
 
 
@@ -629,24 +628,11 @@ class ThemespEditCatPweAPIView(APIView):
         return Response({'comp': model_to_dict(post_new)})
 
 
-
-
 class IconsAPIView(APIView):
     def get(self, request):
-        # context = Icon.objects.all().values()
-        # context = {'contact': context}
-        # return Response({'icons': context})
-
         context = Icon.objects.all()
         serializer = IconSerializer(context, many=True)
         context = {'contact': serializer.data}
-        return Response({'icons': context})
-
-
-class IconsAPIView_(APIView):
-    def get(self, request):
-        context = Icons.objects.all().values()
-        context = {'contact': context}
         return Response({'icons': context})
 
 
